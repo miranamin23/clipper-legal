@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clipper.js — local subtitle and clip tool</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    max-width: 46rem; margin: 0 auto; padding: 3rem 1.25rem 5rem;
+    font: 16px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #0d0f12; color: #e7ebf0;
+  }
+  h1 { font-size: 2rem; margin: 0 0 .35rem; letter-spacing: -.02em; }
+  h2 { font-size: 1.1rem; margin: 2.25rem 0 .5rem; color: #d8ff56; }
+  .lede { color: #969da7; margin: 0 0 2rem; }
+  ul { padding-left: 1.15rem; }
+  li { margin: .3rem 0; }
+  a { color: #d8ff56; }
+  footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid #262b33; color: #969da7; font-size: .9rem; }
+  code { background: #1a1e24; padding: .1rem .35rem; border-radius: 4px; font-size: .9em; }
+</style>
+</head>
+<body>
+  <h1>Clipper.js</h1>
+  <p class="lede">A local desktop tool that turns long videos into short vertical clips
+     with burned-in subtitles.</p>
+
+  <h2>What it does</h2>
+  <ul>
+    <li>Transcribes a video on your own machine and generates word-timed subtitles.</li>
+    <li>Finds clip-worthy segments and renders them as 9:16 MP4 files.</li>
+    <li>Prepares a caption and hashtags for each clip.</li>
+    <li>Optionally uploads a finished clip to your own TikTok account as a
+        <strong>draft</strong>, which you then review and post yourself in the TikTok app.</li>
+  </ul>
+
+  <h2>How it runs</h2>
+  <p>Clipper.js runs entirely on the user's own computer at <code>127.0.0.1</code>.
+     There is no hosted service, no account system and no backend that receives user
+     videos. Transcription and video rendering happen locally.</p>
+
+  <h2>TikTok integration</h2>
+  <p>The app uses TikTok's Content Posting API in upload-to-inbox mode. It only ever
+     uploads files that the user explicitly selects, and only to the TikTok account the
+     user has connected. Uploaded videos arrive as drafts; nothing is published
+     automatically.</p>
+
+  <footer>
+    <a href="./terms.html">Terms of Service</a> ·
+    <a href="./privacy.html">Privacy Policy</a>
+  </footer>
+</body>
+</html>
