@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Clipper.js — connecting…</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    max-width: 32rem; margin: 0 auto; padding: 5rem 1.25rem;
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: #0d0f12; color: #e7ebf0; text-align: center;
+  }
+  h1 { font-size: 1.35rem; margin: 0 0 .75rem; }
+  p { color: #969da7; margin: .5rem 0; }
+  a.button {
+    display: inline-block; margin-top: 1.25rem; padding: .7rem 1.4rem;
+    border-radius: 10px; background: #d8ff56; color: #1f2609;
+    font-weight: 600; text-decoration: none;
+  }
+  code { background: #1a1e24; padding: .1rem .35rem; border-radius: 4px; font-size: .9em; }
+  .err { color: #ff6b6b; }
+</style>
+</head>
+<body>
+  <h1 id="head">Connecting to Clipper…</h1>
+  <p id="msg">Sending you back to the app on your own computer.</p>
+  <p id="manual" hidden>
+    If nothing happens, your browser blocked the automatic redirect.
+    <br><a class="button" id="link" href="#">Open Clipper</a>
+  </p>
+
+<script>
+// TikTok akzeptiert keine localhost-Redirect-URIs. Diese Seite liegt deshalb unter
+// HTTPS auf einer echten Domain, nimmt den Authorization Code entgegen und leitet ihn
+// unveraendert an den lokal laufenden Clipper weiter. Die Seite selbst speichert
+// nichts und spricht mit niemandem - sie ist reine Weiterleitung.
+(function () {
+  var LOCAL = "http://127.0.0.1:8420/api/tiktok/callback";
+  var search = window.location.search || "";
+  var params = new URLSearchParams(search);
+  var target = LOCAL + search;
+
+  document.getElementById("link").href = target;
+
+  if (params.get("error")) {
+    document.getElementById("head").textContent = "TikTok returned an error";
+    document.getElementById("head").className = "err";
+    document.getElementById("msg").textContent =
+      params.get("error_description") || params.get("error");
+    return;
+  }
+
+  if (!params.get("code")) {
+    document.getElementById("head").textContent = "Nothing to forward";
+    document.getElementById("msg").innerHTML =
+      "This page is the TikTok redirect target for Clipper.js. " +
+      "Open it from inside the app, not directly.";
+    return;
+  }
+
+  // Ersetzen statt Anhaengen: der Code soll nicht in der Zurueck-Historie landen.
+  window.location.replace(target);
+  setTimeout(function () {
+    document.getElementById("manual").hidden = false;
+  }, 2500);
+})();
+</script>
+</body>
+</html>
